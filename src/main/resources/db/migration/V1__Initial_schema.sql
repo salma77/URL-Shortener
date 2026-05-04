@@ -1,4 +1,3 @@
--- V1__Initial_schema.sql
 -- Initial database schema for URLShortener Pro
 
 -- Shortened URLs table
