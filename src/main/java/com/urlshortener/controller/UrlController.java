@@ -17,7 +17,6 @@ import org.springframework.web.servlet.view.RedirectView;
 
 /**
  * REST API endpoints for URL shortening service
- * 
  * Endpoints:
  * - POST /api/v1/shorten - Create shortened URL
  * - GET /{shortCode} - Redirect to original URL
