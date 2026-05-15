@@ -49,6 +49,17 @@ class ShortCodeGeneratorTest {
         
         assertThat(code2).isNotEqualTo(code3);
     }
+
+    @Test
+    @DisplayName("Should handle encoding/decoding from ID")
+    void testEncodeDecodeFromId() {
+        long originalId = 12345L;
+
+        String encoded = generator.generateFromId(originalId);
+        long decoded = generator.decodeToId(encoded);
+
+        assertThat(decoded).isEqualTo(originalId);
+    }
     
     @Test
     @DisplayName("Should throw exception for invalid length")
