@@ -21,6 +21,7 @@ import java.util.Map;
  * - UrlNotFoundException
  * - InvalidUrlException
  * - Validation errors
+ * - Generic exceptions
  */
 @RestControllerAdvice
 @Slf4j
@@ -79,5 +80,22 @@ public class GlobalExceptionHandler {
         response.put("timestamp", LocalDateTime.now().toString());
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorResponse> handleGlobalException(
+            Exception ex,
+            WebRequest request) {
+
+        log.error("Unexpected error occurred", ex);
+
+        ErrorResponse response = ErrorResponse.builder()
+                .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                .message("An unexpected error occurred")
+                .timestamp(LocalDateTime.now().toString())
+                .path(request.getDescription(false).replace("uri=", ""))
+                .build();
+
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
     }
 }
