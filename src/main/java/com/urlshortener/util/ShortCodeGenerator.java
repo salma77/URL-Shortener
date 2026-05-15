@@ -73,4 +73,22 @@ public class ShortCodeGenerator {
         
         return sb.reverse().toString();
     }
+
+    /**
+     * Decode base62 short code back to numeric ID
+     *
+     * @param code base62-encoded short code
+     * @return original numeric ID
+     */
+    public long decodeToId(String code) {
+        long id = 0;
+        for (char c : code.toCharArray()) {
+            int digit = CHARACTERS.indexOf(c);
+            if (digit == -1) {
+                throw new IllegalArgumentException("Invalid character in code: " + c);
+            }
+            id = id * CHARACTERS.length() + digit;
+        }
+        return id;
+    }
 }
